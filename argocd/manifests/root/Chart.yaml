@@ -1,0 +1,9 @@
+apiVersion: v2
+name: root
+description: Boilerplate file to force ArgoCD to recognize this path as a helm chart
+
+type: application
+
+version: 0.1.0
+
+appVersion: "0.1.0"

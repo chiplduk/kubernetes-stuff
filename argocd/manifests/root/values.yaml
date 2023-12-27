@@ -1,0 +1,13 @@
+ampWorkspaceId:
+awsAccountId:
+awsRegion:
+eksClusterColor:
+eksClusterName:
+eksClusterSG:
+eksEnvironment:
+eksExtraSG:
+eksOidcArn:
+eksOidcIssuer:
+scEnv:
+scRegion:
+scSubEnv:

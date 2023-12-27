@@ -1,0 +1,9 @@
+tap:
+  ingress:
+    enabled: true
+    className: nginx
+    host: ks.svc.cluster.local
+    tls: []
+  release:
+    namespace:
+      kubeshark

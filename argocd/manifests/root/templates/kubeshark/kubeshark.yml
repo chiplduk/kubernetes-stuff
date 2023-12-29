@@ -1,34 +1,41 @@
-# # #https://artifacthub.io/packages/helm/kubeshark-helm-charts/kubeshark
-# apiVersion: argoproj.io/v1alpha1
-# kind: Application
-# metadata:
-#   name: kubeshark
-#   namespace: argocd
-#   finalizers:
-#     # The default behaviour is foreground cascading deletion
-#     - resources-finalizer.argocd.argoproj.io
-# spec:
-#   destination:
-#     server: 'https://kubernetes.default.svc'
-#     namespace: default
-#   project: default
-#   source:
-#     repoURL: https://helm.kubeshark.co
-#     targetRevision: 51.0.39
-#     chart: kubeshark
-#     helm:
-#       releaseName: kubeshark
-#       values: |
-#         tap:
-#           ingress:
-#             enabled: true
-#             className: nginx
-#             host: ks.svc.cluster.local
-#             tls: []
-#           release:
-#             namespace:
-#               default
-#   syncPolicy:
-#     automated:
-#       selfHeal: true
-#       prune: true
+#https://artifacthub.io/packages/helm/kubeshark-helm-charts/kubeshark
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: kubeshark
+  namespace: argocd
+  # finalizers:
+  #   # The default behaviour is foreground cascading deletion
+  #   - resources-finalizer.argocd.argoproj.io
+spec:
+  destination:
+    server: 'https://kubernetes.default.svc'
+    namespace: kubeshark
+  project: development
+  source:
+    repoURL: https://helm.kubeshark.co
+    targetRevision: 51.0.38
+    chart: kubeshark
+    helm:
+      releaseName: kubeshark
+      valuesObject:
+        tap:
+          ingress:
+            enabled: true
+            className: alb
+            host: ks.svc.cluster.aws
+            tls: []
+            annotations:
+              alb.ingress.kubernetes.io/certificate-arn: arn:aws:acm:eu-west-1:659192515497:certificate/e4958d34-7ce7-45d6-84e4-accd35b5edb8
+              alb.ingress.kubernetes.io/target-type: ip
+              alb.ingress.kubernetes.io/scheme: internet-facing
+              alb.ingress.kubernetes.io/group.name: dev
+            finalizers:
+            - ingress.k8s.aws/resources              
+          release:
+            namespace:
+              kubeshark
+  syncPolicy:
+    automated:
+      selfHeal: true
+      prune: true

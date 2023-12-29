@@ -1,0 +1,37 @@
+# #https://artifacthub.io/packages/helm/hello-helm-charts/hello
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: hello
+  namespace: argocd
+spec:
+  destination:
+    server: 'https://kubernetes.default.svc'
+    namespace: applications
+  project: development
+  source:
+    repoURL: https://cloudecho.github.io/charts/
+    targetRevision: 0.1.2
+    chart: hello
+    helm:
+      releaseName: hello
+      valuesObject:
+        ingress:
+          enabled: true
+          className: alb
+          annotations:
+              alb.ingress.kubernetes.io/certificate-arn: arn:aws:acm:eu-west-1:659192515497:certificate/e4958d34-7ce7-45d6-84e4-accd35b5edb8
+              alb.ingress.kubernetes.io/target-type: ip
+              alb.ingress.kubernetes.io/scheme: internet-facing
+              alb.ingress.kubernetes.io/group.name: dev
+          finalizers:
+          - ingress.k8s.aws/resources              
+          hosts:
+            - host: hello.svc.cluster.aws
+              paths:
+                - path: /
+                  pathType: ImplementationSpecific
+  syncPolicy:
+    automated:
+      selfHeal: true
+      prune: true

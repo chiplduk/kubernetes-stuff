@@ -1,34 +1,37 @@
-# https://artifacthub.io/packages/helm/kubeshark-helm-charts/kubeshark
-# apiVersion: argoproj.io/v1alpha1
-# kind: Application
-# metadata:
-#   name: kubeshark
-#   namespace: argocd
-#   finalizers:
-#     # The default behaviour is foreground cascading deletion
-#     - resources-finalizer.argocd.argoproj.io
-# spec:
-#   destination:
-#     server: 'https://kubernetes.default.svc'
-#     namespace: kubeshark
-#   project: default
-#   source:
-#     repoURL: https://helm.kubeshark.co
-#     targetRevision: 51.0.38
-#     chart: kubeshark
-#     helm:
-#       releaseName: kubeshark
-#       valuesObject:
-#         tap:
-#           ingress:
-#             enabled: true
-#             className: nginx
-#             host: ks.svc.cluster.local
-#             tls: []
-#           release:
-#             namespace:
-#               kubeshark
-#   syncPolicy:
-#     automated:
-#       selfHeal: true
-#       prune: true
+https://artifacthub.io/packages/helm/kubeshark-helm-charts/kubeshark
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: kubeshark
+  namespace: argocd
+  # finalizers:
+  #   # The default behaviour is foreground cascading deletion
+  #   - resources-finalizer.argocd.argoproj.io
+spec:
+  destination:
+    server: 'https://kubernetes.default.svc'
+    namespace: kubeshark
+  project: default
+  source:
+    repoURL: https://helm.kubeshark.co
+    targetRevision: 51.0.38
+    chart: kubeshark
+    helm:
+      releaseName: kubeshark
+      valuesObject:
+        tap:
+          proxy:
+            front:
+              port: 30080
+          ingress:
+            enabled: true
+            className: nginx
+            host: ks.svc.cluster.local
+            tls: []
+          release:
+            namespace:
+              kubeshark
+  syncPolicy:
+    automated:
+      selfHeal: true
+      prune: true

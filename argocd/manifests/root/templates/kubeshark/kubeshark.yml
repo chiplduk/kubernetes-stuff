@@ -4,9 +4,9 @@ kind: Application
 metadata:
   name: kubeshark
   namespace: argocd
-  # finalizers:
-  #   # The default behaviour is foreground cascading deletion
-  #   - resources-finalizer.argocd.argoproj.io
+  finalizers:
+    # The default behaviour is foreground cascading deletion
+    - resources-finalizer.argocd.argoproj.io
 spec:
   destination:
     server: 'https://kubernetes.default.svc'

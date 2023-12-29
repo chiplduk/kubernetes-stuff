@@ -16,7 +16,7 @@ spec:
     helm:
       releaseName: hello
       valueFiles:
-      - values.yml
+      - ./values.yml
   syncPolicy:
     automated:
       selfHeal: true

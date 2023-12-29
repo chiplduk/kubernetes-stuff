@@ -8,25 +8,27 @@ spec:
   destination:
     server: 'https://kubernetes.default.svc'
     namespace: applications
-  project: default
+  project: development
   source:
     repoURL: https://cloudecho.github.io/charts/
     targetRevision: 0.1.2
     chart: hello
     helm:
       releaseName: hello
-      values: |
+      valuesObject:
         ingress:
           enabled: true
-          className: nginx
-          annotations: {}
-            kubernetes.io/ingress.class: nginx
-            # kubernetes.io/tls-acme: "true"
+          className: alb
+          annotations:
+              alb.ingress.kubernetes.io/certificate-arn: arn:aws:acm:eu-west-1:659192515497:certificate/e4958d34-7ce7-45d6-84e4-accd35b5edb8
+              alb.ingress.kubernetes.io/target-type: ip
+              alb.ingress.kubernetes.io/scheme: internet-facing
+              alb.ingress.kubernetes.io/group.name: dev
           hosts:
-            - host: ks.svc.cluster.local
+            - host: hello.svc.cluster.aws
               paths:
                 - path: /
-                  pathType: ImplementationSpecific          
+                  pathType: ImplementationSpecific
   syncPolicy:
     automated:
       selfHeal: true

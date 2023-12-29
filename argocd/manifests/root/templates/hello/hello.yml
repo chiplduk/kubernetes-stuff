@@ -16,7 +16,7 @@ spec:
     helm:
       releaseName: hello
       valueFiles:
-      - ./values.yml
+      - argocd/manifests/root/templates/hello/values.yml
   syncPolicy:
     automated:
       selfHeal: true

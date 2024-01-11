@@ -11,7 +11,7 @@ spec:
   destination:
     server: 'https://kubernetes.default.svc'
     namespace: kubeshark
-  project: default
+  project: development
   source:
     repoURL: https://helm.kubeshark.co
     targetRevision: 51.0.38

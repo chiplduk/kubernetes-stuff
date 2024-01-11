@@ -11,7 +11,7 @@ spec:
   destination:
     server: 'https://kubernetes.default.svc'
     namespace: kubeshark
-  project: development
+  project: default
   source:
     repoURL: https://helm.kubeshark.co
     targetRevision: 51.0.38
@@ -25,14 +25,9 @@ spec:
               port: 30080
           ingress:
             enabled: true
-            className: alb
-            host: ks.svc.cluster.aws
+            className: nginx
+            host: ks.svc.cluster.local
             tls: []
-            annotations:
-              alb.ingress.kubernetes.io/certificate-arn: arn:aws:acm:eu-west-1:659192515497:certificate/e4958d34-7ce7-45d6-84e4-accd35b5edb8
-              alb.ingress.kubernetes.io/target-type: ip
-              alb.ingress.kubernetes.io/scheme: internet-facing
-              alb.ingress.kubernetes.io/group.name: dev
           release:
             namespace:
               kubeshark

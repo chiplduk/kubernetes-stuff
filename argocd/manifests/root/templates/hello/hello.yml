@@ -18,16 +18,10 @@ spec:
       valuesObject:
         ingress:
           enabled: true
-          className: alb
           annotations:
-              alb.ingress.kubernetes.io/certificate-arn: arn:aws:acm:eu-west-1:659192515497:certificate/e4958d34-7ce7-45d6-84e4-accd35b5edb8
-              alb.ingress.kubernetes.io/target-type: ip
-              alb.ingress.kubernetes.io/scheme: internet-facing
-              alb.ingress.kubernetes.io/group.name: dev
-          finalizers:
-          - ingress.k8s.aws/resources              
+              "kubernetes.io/ingress.class": "azure/application-gateway"
           hosts:
-            - host: hello.svc.cluster.aws
+            - host: hello.svc.cluster.azure
               paths:
                 - path: /
                   pathType: ImplementationSpecific

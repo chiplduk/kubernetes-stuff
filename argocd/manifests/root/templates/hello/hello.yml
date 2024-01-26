@@ -21,11 +21,11 @@ spec:
           annotations:
               kubernetes.io/ingress.class: "azure/application-gateway"
               appgw.ingress.kubernetes.io/backend-path-prefix: "/"
-              appgw.ingress.kubernetes.io/appgw-ssl-certificate: "https://certificatesazure.vault.azure.net/secrets/azure-skotobaza"
-              # kubernetes.azure.com/tls-cert-keyvault-uri": "https://argocdsvcclusterazure.vault.azure.net/certificates/svcclusterazure/626b23dc7fb1449c9cdd92fca75ab1d7"
-              appgw.ingress.kubernetes.io/ssl-redirect: "true"              
+              appgw.ingress.kubernetes.io/appgw-ssl-certificate: "azure"
+              appgw.ingress.kubernetes.io/ssl-redirect: "true"    
           hosts:
             - host: hello.azure.skotobaza.es
+              paths:
                 - path: /
                   pathType: ImplementationSpecific
   syncPolicy:
